@@ -47,7 +47,7 @@ app.use(
 // =======================================
 // index
 app.get("/", productController.index);
-app.get("/mobilecarwash/list", productController.getlist);
+app.get("/mobilecarwash/list", productController.displaylist);
 app.patch("/mobilecarwash/:service", productController.addCustomChoice);
 app.get("/mobilecarwash/:service", productController.listService);
 app.post("/mobilecarwash/:id", productController.addSelectionToCollection);
