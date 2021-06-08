@@ -17,7 +17,7 @@ const customChoiceSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
-  currentBuild: {
+  currentChoice: {
     exteriorWash: {},
     surfaceTreatment: {},
     wheels: {},

@@ -1,7 +1,7 @@
-const newProduct = [
+const newSelection = [
   {
     name: "Sonax Snow Foam Wash",
-    type: "exteriorWash",
+    type: "exteriorwash",
     price: 10,
     image: "https://images.app.goo.gl/HYAkVChqNxkspvmRA",
     properties: {
@@ -12,7 +12,7 @@ const newProduct = [
   },
   {
     name: "Waterless Wash",
-    type: "exteriorWash",
+    type: "exteriorwash",
     price: 8,
     image: "https://images.app.goo.gl/AeW68G9E79eN7SKy9",
     properties: {
@@ -23,7 +23,7 @@ const newProduct = [
   },
   {
     name: "Claybar Treatment",
-    type: "surfaceTreatment",
+    type: "surfacetreatment",
     price: 30,
     image: "https://images.app.goo.gl/UHJXv4Cr2UobAot2A",
     properties: {
@@ -34,7 +34,7 @@ const newProduct = [
   },
   {
     name: "Ceremic Coating",
-    type: "surfaceTreatment",
+    type: "surfacetreatment",
     price: 200,
     image: "https://images.app.goo.gl/fmT3UgsG5NmvxqGv7",
     properties: {
@@ -89,7 +89,7 @@ const newProduct = [
   },
   {
     name: "Leather Conditioning",
-    type: "leatherCare",
+    type: "leathercare",
     price: 30,
     image: "https://images.app.goo.gl/dtaC6hWatRSoajCQ7",
     properties: {
@@ -100,7 +100,7 @@ const newProduct = [
   },
   {
     name: "Leather Cleaning",
-    type: "leatherCare",
+    type: "leathercare",
     price: 25,
     image: "https://images.app.goo.gl/XmDAjbTnZsYSRqEr6",
     properties: {
@@ -111,7 +111,7 @@ const newProduct = [
   },
   {
     name: "Fumigation",
-    type: "addOn",
+    type: "addon",
     price: 40,
     image: "https://images.app.goo.gl/YKGybsu7bhfA5cvu6",
     properties: {
@@ -122,4 +122,4 @@ const newProduct = [
   },
 ];
 
-module.exports = newProduct;
+module.exports = newSelection;

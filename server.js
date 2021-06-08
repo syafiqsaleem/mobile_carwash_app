@@ -46,12 +46,13 @@ app.use(setUserVarMiddleware);
 // =======================================
 // index
 app.get("/", productController.index);
+app.get("/mobilecarwash/list", productController.getlist);
+app.patch("/mobilecarwash/:service", productController.addBuild);
+app.get("/mobilecarwash/:service", productController.listProduct);
+app.post("/mobilecarwash/:id", productController.addCollectionToBuild);
 
 // new
 router.get("/new", productController.newForm);
-
-// show
-app.get("/mobilecarwash/list", productController.getlist);
 
 // create
 router.post("/", productController.create);

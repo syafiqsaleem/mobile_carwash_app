@@ -13,7 +13,9 @@ const serviceSchema = new mongoose.Schema({
     type: mongoose.Types.Decimal128,
     required: true,
   },
-  image: String,
+  image: {
+    type: String,
+  },
   properties: {},
 });
 
