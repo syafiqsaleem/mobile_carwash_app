@@ -18,7 +18,7 @@ const productController = {
     });
   },
 
-  displaylist: (req, res) => {
+  displayList: (req, res) => {
     customChoiceModel
       .findOne({
         username: req.session.user.username,
