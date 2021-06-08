@@ -63,8 +63,7 @@ const productController = {
 
   addCustomChoice: (req, res) => {
     let type = req.params.service;
-    const slug = _.kebabCase(req.body.item);
-
+    const slug = req.body.item;
     customChoiceModel
       .findOne({
         username: req.session.user.username,

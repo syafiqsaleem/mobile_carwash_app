@@ -122,4 +122,9 @@ const newSelection = [
   },
 ];
 
+newSelection = newSelection.map((item) => {
+  item.slug = _.kebabCase(item.name);
+  return item;
+})
+
 module.exports = newSelection;

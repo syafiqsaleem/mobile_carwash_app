@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const productData = require("../models/seedData/newProduct");
-const ProductModel = require("../models/products");
+const productData = require("../models/seedData/newSelection");
+const ServiceModel = require("../models/services");
 
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
@@ -11,7 +11,7 @@ mongoose
     console.log("MongoDB connection successful");
   })
   .then((response) => {
-    ProductModel.insertMany(productData)
+    ServiceModel.insertMany(productData)
       .then((insertResponse) => {
         console.log("Data seeding successful");
       })
