@@ -11,6 +11,7 @@ const userController = require("./controllers/user_controller");
 
 const app = express();
 const port = 3000;
+const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
@@ -36,10 +37,10 @@ app.use(
   })
 );
 
-app.use(flash({ sessionKeyName: "flash_message" }));
+// app.use(flash({ sessionKeyName: "flash_message" }));
 
 // setting middleware to ensure global template user variable (Set the user to an initial value of null & check the session if it's set -> auth-middleware)
-app.use(setUserVarMiddleware);
+// app.use(setUserVarMiddleware);
 
 // =======================================
 //              ROUTES
@@ -47,24 +48,24 @@ app.use(setUserVarMiddleware);
 // index
 app.get("/", productController.index);
 app.get("/mobilecarwash/list", productController.getlist);
-app.patch("/mobilecarwash/:service", productController.addBuild);
-app.get("/mobilecarwash/:service", productController.listProduct);
-app.post("/mobilecarwash/:id", productController.addCollectionToBuild);
+app.patch("/mobilecarwash/:service", productController.addCustomChoice);
+app.get("/mobilecarwash/:service", productController.listService);
+app.post("/mobilecarwash/:id", productController.addSelectionToCollection);
 
-// new
-router.get("/new", productController.newForm);
+// // new
+// router.get("/new", productController.newForm);
 
-// create
-router.post("/", productController.create);
+// // create
+// router.post("/", productController.create);
 
-// edit
-router.get("/:slug/edit", productController.editForm);
+// // edit
+// router.get("/:slug/edit", productController.editForm);
 
-// update
-router.patch("/:slug", productController.update);
+// // update
+// router.patch("/:slug", productController.update);
 
-// delete
-router.delete("/:slug", productController.delete);
+// // delete
+// router.delete("/:slug", productController.delete);
 
 // =======================================
 //              LISTENER

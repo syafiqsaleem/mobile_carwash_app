@@ -1,9 +1,8 @@
-const ProductModel = require("../models/services");
-const UserModel = require("../models/users");
-const customChoiceModel = require("../models/customChoice");
+const ServiceModel = require("../models/services");
+const customChoiceModel = require("../models/custom_choice");
 const CollectionModel = require("../models/collection");
-const { result } = require("lodash");
-const productList = {
+const _ = require("lodash");
+const serviceList = {
   exteriorwash: "Exterior Wash",
   surfacetreatment: "Surface Treatment",
   wheels: "Wheels",
@@ -12,12 +11,13 @@ const productList = {
   addon: "Add On",
 };
 
-const productsControllers = {
+const productController = {
   index: (req, res) => {
     res.render("product/index", {
-      pageTitle: "PC Picker",
+      pageTitle: "MOBILECARWASH",
     });
   },
+
   getlist: (req, res) => {
     customChoiceModel
       .findOne({
@@ -28,10 +28,10 @@ const productsControllers = {
           res.redirect("/users/login");
           return;
         }
-        res.render("product/list", {
-          pageTitle: "System Builder",
-          product: productList,
-          userBuild: result.currentBuild,
+        res.render("service/list", {
+          pageTitle: "Service Selection",
+          service: serviceList,
+          userSelection: result.currentSelection,
         });
       })
       .catch((err) => {
@@ -39,85 +39,89 @@ const productsControllers = {
         res.redirect("/users/login");
       });
   },
-  listProduct: (req, res) => {
-    let type = req.params.product;
-    ProductModel.find({
+
+  listService: (req, res) => {
+    let type = req.params.service;
+    ServiceModel.find({
       type: type,
     })
       .then((result) => {
         if (!result) {
-          res.redirect("/pcpicker/list");
+          res.redirect("/mobilecarwash/list");
           return;
         }
-        res.render("product/selection", {
-          pageTitle: "Choose a " + productList[type],
+        res.render("service/selection", {
+          pageTitle: "Choose a " + serviceList[type],
           items: result,
         });
       })
       .catch((err) => {
         console.log(err);
-        res.redirect("/pcpicker/list");
+        res.redirect("/mobilecarwash/list");
       });
   },
-  addBuild: (req, res) => {
-    let type = req.params.product;
-    const slug = req.body.item;
+
+  addCustomChoice: (req, res) => {
+    let type = req.params.service;
+    const slug = _.kebabCase(req.body.item);
+
     customChoiceModel
       .findOne({
         username: req.session.user.username,
       })
       .then((result) => {
         if (!result) {
-          res.redirect("/pcpicker/list");
+          res.redirect("/mobilecarwash/list");
           return;
         }
-        let newBuild = {};
-        if (result.currentBuild) {
-          newBuild = result.currentBuild;
+        let newSelection = {};
+        if (result.currentSelection) {
+          newSelection = result.currentSelection;
         }
-        ProductModel.findOne({
+        ServiceModel.findOne({
           slug: slug,
         })
-          .then((resultProduct) => {
-            newBuild[type] = resultProduct;
+          .then((resultService) => {
+            newSelection[type] = resultService;
             let totalNum = 0;
-            for (let key in productList) {
-              if (newBuild[key]) {
-                let num = newBuild[key].price;
+            for (let key in serviceList) {
+              if (newSelection[key]) {
+                let num = newSelection[key].price;
                 let floatNum = parseFloat(num);
                 totalNum += floatNum;
               }
             }
-            newBuild.totalPrice = totalNum;
+            newSelection.totalPrice = totalNum;
             customChoiceModel
               .updateOne(
                 {
                   username: req.session.user.username,
                 },
                 {
-                  currentBuild: newBuild,
+                  currentSelection: newSelection,
                   updated_at: Date.now(),
                 }
               )
               .then((result) => {
-                res.redirect("/pcpicker/list");
+                res.redirect("/mobilecarwash/list");
               })
               .catch((err) => {
                 console.log(err);
-                res.redirect("/pcpicker/list");
+                res.redirect("/mobilecarwash/list");
               });
           })
           .catch((err) => {
             console.log(err);
-            res.redirect("/pcpicker/list");
+            res.redirect("/mobilecarwash/list");
           });
       })
       .catch((err) => {
         console.log(err);
-        res.redirect("/pcpicker/list");
+        res.redirect("/mobilecarwash/list");
       });
   },
-  addCollectionToBuild: (req, res) => {
+
+  addSelectionToCollection: (req, res) => {
     const id = req.params.id;
     CollectionModel.findOne({
       _id: id,
@@ -127,18 +131,18 @@ const productsControllers = {
           res.redirect("/collection");
           return;
         }
-        let newBuild = result.build;
+        let newSelection = result.selection;
         customChoiceModel
           .updateOne(
             {
               username: req.session.user.username,
             },
             {
-              currentBuild: newBuild,
+              currentSelection: newSelection,
             }
           )
           .then((result) => {
-            res.redirect("/pcpicker/list");
+            res.redirect("/mobilecarwash/list");
           })
           .catch((err) => {
             console.log(err);
@@ -152,4 +156,4 @@ const productsControllers = {
   },
 };
 
-module.exports = productsControllers;
+module.exports = productController;

@@ -1,6 +1,6 @@
 const newSelection = [
   {
-    name: "Sonax Snow Foam Wash",
+    name: "sonax snow foam wash",
     type: "exteriorwash",
     price: 10,
     image: "https://images.app.goo.gl/HYAkVChqNxkspvmRA",
@@ -11,7 +11,7 @@ const newSelection = [
     },
   },
   {
-    name: "Waterless Wash",
+    name: "waterless wash",
     type: "exteriorwash",
     price: 8,
     image: "https://images.app.goo.gl/AeW68G9E79eN7SKy9",
@@ -22,7 +22,7 @@ const newSelection = [
     },
   },
   {
-    name: "Claybar Treatment",
+    name: "claybar treatment",
     type: "surfacetreatment",
     price: 30,
     image: "https://images.app.goo.gl/UHJXv4Cr2UobAot2A",
@@ -33,7 +33,7 @@ const newSelection = [
     },
   },
   {
-    name: "Ceremic Coating",
+    name: "ceremic coating",
     type: "surfacetreatment",
     price: 200,
     image: "https://images.app.goo.gl/fmT3UgsG5NmvxqGv7",
@@ -44,7 +44,7 @@ const newSelection = [
     },
   },
   {
-    name: "Rim Chemical Scrub & Tyre Shine",
+    name: "rim chemical scrub & tyre shine",
     type: "wheels",
     price: 8,
     image: "https://images.app.goo.gl/Gnb1y3mxE7ZqVxcU9",
@@ -55,7 +55,7 @@ const newSelection = [
     },
   },
   {
-    name: "Tyre Shine",
+    name: "tyre shine",
     type: "wheels",
     price: 2,
     image: "https://images.app.goo.gl/6pMZvFFNbyWcv2DP9",
@@ -66,7 +66,7 @@ const newSelection = [
     },
   },
   {
-    name: "Vacuum",
+    name: "vacuum",
     type: "interior",
     price: 10,
     image: "https://images.app.goo.gl/kw9qJqDz1e9sr8DeA",
@@ -77,7 +77,7 @@ const newSelection = [
     },
   },
   {
-    name: "Vacuum & Disinfection Interior Wipedown",
+    name: "vacuum & disinfection interior wipedown",
     type: "interior",
     price: 30,
     image: "https://images.app.goo.gl/kw9qJqDz1e9sr8DeA",
@@ -88,7 +88,7 @@ const newSelection = [
     },
   },
   {
-    name: "Leather Conditioning",
+    name: "leather conditioning",
     type: "leathercare",
     price: 30,
     image: "https://images.app.goo.gl/dtaC6hWatRSoajCQ7",
@@ -99,7 +99,7 @@ const newSelection = [
     },
   },
   {
-    name: "Leather Cleaning",
+    name: "leather cleaning",
     type: "leathercare",
     price: 25,
     image: "https://images.app.goo.gl/XmDAjbTnZsYSRqEr6",
@@ -110,7 +110,7 @@ const newSelection = [
     },
   },
   {
-    name: "Fumigation",
+    name: "fumigation",
     type: "addon",
     price: 40,
     image: "https://images.app.goo.gl/YKGybsu7bhfA5cvu6",
