@@ -13,9 +13,9 @@
         <% for (let key in service) { %>
         <tr>
             <th scope="row"><%=service[key] %></th>
-            <% if(!userSelection[key]){ %>
-            <td><a href="/mobilecarwash/<%=key %>"><button type="button" class="btn btn-primary"><%='Choose a ' + service[key] %></button></a></td>
-            <% }else{ count++ %>
+            <!-- < if(!userSelection[key]){ %>
+            <td><a href="/mobilecarwash/<=key %>"><button type="button" class="btn btn-primary"><='Choose a ' + service[key] %></button></a></td>
+            < }else{ count++ %> -->
             <td><%= userSelection[key].name %><a href="/mobilecarwash/<%= key %> "> Change</a></td>
             <td><%= userSelection[key].price %></td>
                 <form method="POST" action="/mobilecarwash/<%= key %>?_method=PATCH">

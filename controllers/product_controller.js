@@ -1,7 +1,7 @@
-const ServiceModel = require("../models/services");
+const ServiceModel = require("../models/service");
 const customChoiceModel = require("../models/custom_choice");
 const CollectionModel = require("../models/collection");
-const _ = require("lodash");
+const { result } = require("lodash");
 const serviceList = {
   exteriorwash: "Exterior Wash",
   surfacetreatment: "Surface Treatment",
@@ -13,31 +13,31 @@ const serviceList = {
 
 const productController = {
   index: (req, res) => {
-    res.render("services/index", {
+    res.render("service/index", {
       pageTitle: "MOBILECARWASH",
     });
   },
 
   displayList: (req, res) => {
-    customChoiceModel
-      .findOne({
-        username: req.session.user.username,
-      })
-      .then((result) => {
-        if (!result) {
-          res.redirect("/users/login");
-          return;
-        }
-        res.render("service/list", {
-          pageTitle: "Service Selection",
-          service: serviceList,
-          userSelection: result.currentSelection,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.redirect("/users/login");
-      });
+    // customChoiceModel
+    //   .findOne({
+    //     username: req.session.user.username,
+    //   })
+    //   .then((result) => {
+    //     if (!result) {
+    //       res.redirect("/users/login");
+    //       return;
+    //     }
+    res.render("service/list", {
+      pageTitle: "Service Selection",
+      service: serviceList,
+      userSelection: result.currentSelection,
+    });
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   res.redirect("/users/login");
+    // });
   },
 
   listService: (req, res) => {
@@ -64,60 +64,59 @@ const productController = {
   addCustomChoice: (req, res) => {
     let type = req.params.service;
     const slug = req.body.item;
-    customChoiceModel
-      .findOne({
-        username: req.session.user.username,
-      })
-      .then((result) => {
-        if (!result) {
-          res.redirect("/mobilecarwash/list");
-          return;
+    // customChoiceModel
+    //   .findOne({
+    //     username: req.session.user.username,
+    //   })
+    //   .then((result) => {
+    //     if (!result) {
+    //       res.redirect("/mobilecarwash/list");
+    //       return;
+    //     }
+    let newSelection = {};
+    if (result.currentSelection) {
+      newSelection = result.currentSelection;
+    }
+    ServiceModel.findOne({
+      slug: slug,
+    }).then((resultService) => {
+      newSelection[type] = resultService;
+      let totalNum = 0;
+      for (let key in serviceList) {
+        if (newSelection[key]) {
+          let num = newSelection[key].price;
+          let floatNum = parseFloat(num);
+          totalNum += floatNum;
         }
-        let newSelection = {};
-        if (result.currentSelection) {
-          newSelection = result.currentSelection;
-        }
-        ServiceModel.findOne({
-          slug: slug,
-        })
-          .then((resultService) => {
-            newSelection[type] = resultService;
-            let totalNum = 0;
-            for (let key in serviceList) {
-              if (newSelection[key]) {
-                let num = newSelection[key].price;
-                let floatNum = parseFloat(num);
-                totalNum += floatNum;
-              }
-            }
-            newSelection.totalPrice = totalNum;
-            customChoiceModel
-              .updateOne(
-                {
-                  username: req.session.user.username,
-                },
-                {
-                  currentSelection: newSelection,
-                  updated_at: Date.now(),
-                }
-              )
-              .then((result) => {
-                res.redirect("/mobilecarwash/list");
-              })
-              .catch((err) => {
-                console.log(err);
-                res.redirect("/mobilecarwash/list");
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.redirect("/mobilecarwash/list");
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.redirect("/mobilecarwash/list");
-      });
+      }
+      // newSelection.totalPrice = totalNum;
+      // customChoiceModel
+      //   .updateOne(
+      //     {
+      //       username: req.session.user.username,
+      //     },
+      //     {
+      //       currentSelection: newSelection,
+      //       updated_at: Date.now(),
+      //     }
+      //   )
+      //   .then((result) => {
+      res.redirect("/mobilecarwash/list");
+      //         })
+      //         .catch((err) => {
+      //           console.log(err);
+      //           res.redirect("/mobilecarwash/list");
+      //         });
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //       res.redirect("/mobilecarwash/list");
+      //     });
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      //   res.redirect("/mobilecarwash/list");
+    });
   },
 
   addSelectionToCollection: (req, res) => {
