@@ -97,83 +97,83 @@ const collectionControllers = {
         res.redirect("/pcpicker/list");
       });
   },
-  giveLike: (req, res) => {
-    const id = req.params.id;
-    CollectionModel.findOne({
-      _id: id,
-    })
-      .then((result) => {
-        if (!result) {
-          res.redirect("/collection");
-          return;
-        }
-        let arrayLike = result.likes;
-        let user = req.session.user.username;
-        if (checkLike(arrayLike, user)) {
-          _.remove(arrayLike, function (n) {
-            return n == user;
-          });
-        } else {
-          arrayLike.push(user);
-        }
-        CollectionModel.updateOne(
-          {
-            _id: id,
-          },
-          {
-            likes: arrayLike,
-          }
-        )
-          .then((result) => {
-            res.redirect("/collection/" + id);
-          })
-          .catch((err) => {
-            console.log(err);
-            res.redirect("/collection");
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.redirect("/collection");
-      });
-  },
+  //   giveLike: (req, res) => {
+  //     const id = req.params.id;
+  //     CollectionModel.findOne({
+  //       _id: id,
+  //     })
+  //       .then((result) => {
+  //         if (!result) {
+  //           res.redirect("/collection");
+  //           return;
+  //         }
+  //         let arrayLike = result.likes;
+  //         let user = req.session.user.username;
+  //         if (checkLike(arrayLike, user)) {
+  //           _.remove(arrayLike, function (n) {
+  //             return n == user;
+  //           });
+  //         } else {
+  //           arrayLike.push(user);
+  //         }
+  //         CollectionModel.updateOne(
+  //           {
+  //             _id: id,
+  //           },
+  //           {
+  //             likes: arrayLike,
+  //           }
+  //         )
+  //           .then((result) => {
+  //             res.redirect("/collection/" + id);
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //             res.redirect("/collection");
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         res.redirect("/collection");
+  //       });
+  //   },
 
-  giveComment: (req, res) => {
-    const id = req.params.id;
-    CollectionModel.findOne({
-      _id: id,
-    })
-      .then((result) => {
-        if (!result) {
-          res.redirect("/collection");
-          return;
-        }
-        CollectionModel.updateOne(
-          {
-            _id: id,
-          },
-          {
-            $push: {
-              comments: {
-                username: req.session.user.username,
-                content: req.body.comment,
-              },
-            },
-          }
-        )
-          .then((result) => {
-            res.redirect("/collection/" + id);
-          })
-          .catch((err) => {
-            console.log(err);
-            res.redirect("/collection");
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.redirect("/collection");
-      });
-  },
+  //   giveComment: (req, res) => {
+  //     const id = req.params.id;
+  //     CollectionModel.findOne({
+  //       _id: id,
+  //     })
+  //       .then((result) => {
+  //         if (!result) {
+  //           res.redirect("/collection");
+  //           return;
+  //         }
+  //         CollectionModel.updateOne(
+  //           {
+  //             _id: id,
+  //           },
+  //           {
+  //             $push: {
+  //               comments: {
+  //                 username: req.session.user.username,
+  //                 content: req.body.comment,
+  //               },
+  //             },
+  //           }
+  //         )
+  //           .then((result) => {
+  //             res.redirect("/collection/" + id);
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //             res.redirect("/collection");
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         res.redirect("/collection");
+  //       });
+  //   },
 
   showCollection: (req, res) => {
     const id = req.params.id;

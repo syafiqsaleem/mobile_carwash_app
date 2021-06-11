@@ -46,27 +46,21 @@ app.use(
 // =======================================
 //              ROUTES
 // =======================================
-// index
+//Product Controllers
 app.get("/", productController.index);
 app.get("/mobilecarwash/list", productController.displayList);
 app.patch("/mobilecarwash/:service", productController.addCustomChoice);
 app.get("/mobilecarwash/:service", productController.listService);
 app.post("/mobilecarwash/:id", productController.addSelectionToCollection);
 
-// // new
-// router.get("/new", productController.newForm);
+// Collection Controllers
+app.get("/collection", collectionController.collection);
+app.get("/collection/new", collectionController.showNewCollectionForm);
+app.get("/collection/:id", collectionController.showCollection);
+app.post("/collection", collectionController.newCollection);
+app.delete("/collection/:id", collectionController.deleteCollection);
 
-// // create
-// router.post("/", productController.create);
-
-// // edit
-// router.get("/:slug/edit", productController.editForm);
-
-// // update
-// router.patch("/:slug", productController.update);
-
-// // delete
-// router.delete("/:slug", productController.delete);
+// User Controllers
 
 // =======================================
 //              LISTENER
@@ -74,7 +68,11 @@ app.post("/mobilecarwash/:id", productController.addSelectionToCollection);
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((response) => {
+    console.log("DB connection is successful");
     app.listen(port, () => {
       console.log(`Mobile Carwash app listening on port: ${port}`);
     });
+  })
+  .catch((err) => {
+    console.log(err);
   });
