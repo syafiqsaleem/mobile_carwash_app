@@ -1,0 +1,37 @@
+<%- include('../partials/header'); %>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Services</th>
+            <th scope="col">Selection</th>
+            <th scope="col">Price(SGD)</th>
+        </tr>
+    </thead>
+    <% let count = 0 %> 
+    <tbody>
+        <% for (let key in service) { %>
+        <tr>
+            <th scope="row"><%=service[key] %></th>
+            <% if(!userSelection[key]){ %>
+            <td><a href="/mobilecarwash/<%=key %>"><button type="button" class="btn btn-primary"><%='Choose a ' + service[key] %></button></a></td>
+            <% }else{ count++ %>
+            <td><%= userSelection[key].name %><a href="/mobilecarwash/<%= key %> "> Change</a></td>
+            <td><%= userSelection[key].price %></td>
+                <form method="POST" action="/mobilecarwash/<%= key %>?_method=PATCH">
+                    <button type="submit" class="btn btn-danger" name="item" value="">DELETE</button>
+                </form>
+            </td>
+            <% } %>
+        </tr>
+        <%}%>
+        <tr>
+            <td><%= 'Total: ' + userSelection.totalPrice %> </td>
+        </tr>
+    </tbody>
+</table>
+<% if(count>5){ %>
+<a href="/collection/new"><button type="submit" class="btn btn-primary">IT'S TIME TO SHARE</button></a>
+<% }%>
+
+<%- include('../partials/footer'); %>

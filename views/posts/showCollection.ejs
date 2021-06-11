@@ -1,0 +1,125 @@
+<%- include('../partials/header'); %>
+
+<div class="post">
+  <div class="content-board">
+    <img class="content-size" src="<%= collection.image%>" />
+  </div>
+  <div class="content">
+    <i class="fas fa-user-circle" style="font-size: 60px">
+      <%= collection.username %>
+    </i>
+    <p class="time"><%=msToTime(Date.now()-collection.updated_at)%></p>
+    <h1><%= collection.title %></h1>
+    <p class="description"><%= collection.description %></p>
+    <hr class="line" />
+
+    <i class="far fa-thumbs-up" style="font-size: 30px" id="like-status">
+      <%= collection.likes.length %></i
+    >
+    <hr class="line" />
+    <div class="row">
+      <form
+        method="POST"
+        action="/collection/like/<%= collection._id %>"
+        class="col"
+        id="form-id"
+      >
+        <% if(collection.likes.indexOf(user.username) !== -1){ %>
+        <button type="submit" class="like-button" id="liked">
+          <i class="fas fa-thumbs-up"> Like</i>
+        </button>
+        <% }else{%>
+        <button type="submit" class="like-button" id="like">
+          <i class="far fa-thumbs-up"> Like</i>
+        </button>
+        <% } %>
+      </form>
+
+      <button id="comment-button" class="col">
+        <i class="far fa-comment-alt"> Comment</i>
+      </button>
+    </div>
+
+    <hr class="line" />
+
+    <div>
+      <% let comment = collection.comments %> <% comment.sort((a,b) =>
+      (a.updated_at > b.updated_at) ? -1 : ((b.updated_at > a.updated_at) ? 1 :
+      0)) %> <% comment.forEach(collectionComment => { %>
+      <i class="fas fa-user-circle" style="font-size: 30px; color: grey">
+        <%=collectionComment.username %> <%=": "+collectionComment.content %>
+      </i>
+      <p></p>
+      <p class="time"><%=msToTime(Date.now()-collectionComment.updated_at)%></p>
+      <% }); %>
+    </div>
+
+    <form method="POST" action="/collection/comment/<%= collection._id %>">
+      <div class="form-group row">
+        <div class="col-md-auto">
+          <i class="fas fa-user-circle" style="font-size: 40px"></i>
+        </div>
+        <div class="col">
+          <input
+            class="form-control form-control-sm col"
+            id="comment-box"
+            name="comment"
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-info" id="comment">Submit</button>
+    </form>
+    <h3>My collection</h3>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Services</th>
+          <th scope="col">Selection</th>
+          <th scope="col">Price(SGD)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let key in product) { %>
+        <tr>
+          <th scope="row"><%=service[key] %></th>
+          <td><%= userSelection[key].name %></td>
+          <td><%= userSelection[key].price %></td>
+          <td>
+            <a href="/mobilecarwash/<%=key %>"
+              ><button type="button" class="btn btn-primary">
+                <%='Add this to my build'%>
+              </button></a
+            >
+          </td>
+        </tr>
+        <%}%>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= 'Total: '+ userSelection.totalPrice %></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form method="POST" action="/mobilecarwash/<%=collection._id%> ">
+      <button type="submit" class="btn btn-info" id="share-btn">
+        Add this collection to my selection
+      </button>
+    </form>
+
+    <% if (user.username===collection.username){ %>
+    <form action="/collection/<%=collection._id%>?_method=DELETE" method="POST">
+      <button type="submit" class="btn btn-danger">DELETE POST</button>
+    </form>
+    <% } %>
+  </div>
+  <% function msToTime(duration) {%> <% let time = 0 %> <% let minutes =
+  Math.floor((duration / (1000 * 60)) % 60)%> <% let hours =
+  Math.floor((duration / (1000 * 60 * 60)) % 24)%> <% let days =
+  Math.floor((duration / (1000 * 60 * 60 * 24)))%> <% time = (days > 0) ? days
+  +"d" : (hours > 0) ? hours+"h": minutes+"m"%> <% return time%> <% } %>
+</div>
+
+<%- include('../partials/footer'); %>

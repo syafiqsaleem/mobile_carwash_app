@@ -13,7 +13,7 @@ const serviceList = {
 
 const productController = {
   index: (req, res) => {
-    res.render("product/index", {
+    res.render("services/index", {
       pageTitle: "MOBILECARWASH",
     });
   },

@@ -13,7 +13,7 @@ const userController = require("./controllers/user_controller");
 const app = express();
 const port = 3000;
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
-console.log(mongoURI);
+
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 
