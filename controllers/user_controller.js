@@ -31,7 +31,7 @@ const userControllers = {
           return;
         }
 
-        // If no result found in DB, user can proceed with registration
+        // If no result found in DB --> proceed with registration
         // generate uuid as salt
         const salt = uuid.v4();
 
@@ -50,7 +50,7 @@ const userControllers = {
           hash: hash,
         })
           .then((createResult) => {
-            res.redirect("/pcpicker/list");
+            res.redirect("/mobilecarwash/list");
           })
           .catch((err) => {
             console.log(err);
@@ -62,7 +62,7 @@ const userControllers = {
             username: req.body.username,
           })
           .then((createResult) => {
-            res.redirect("/pcpicker/list");
+            res.redirect("/mobilecarwash/list");
           })
           .catch((err) => {
             console.log(err);
@@ -73,7 +73,7 @@ const userControllers = {
           username: req.body.username,
         })
           .then((createResult) => {
-            res.redirect("/pcpicker/list");
+            res.redirect("/mobilecarwash/list");
           })
           .catch((err) => {
             console.log(err);
@@ -112,7 +112,7 @@ const userControllers = {
         }
         req.session.user = result;
         // login successful
-        res.redirect("/pcpicker/list");
+        res.redirect("/mobilecarwash/list");
       })
       .catch((err) => {
         console.log(err);
