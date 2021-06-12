@@ -14,27 +14,6 @@
       <h4><a href="/collection/<%= element._id %>"><%= element.title %></a></h4>
       <p><%= element.description %></p>
       <hr class="line" />
-      <i class="far fa-thumbs-up" style="font-size: 30px" id="like-status">
-        <%= element.likes.length %></i
-      >
-      <hr class="line" />
-      <div class="row">
-        <form
-          method="POST"
-          action="/collection/like/<%= element._id %>"
-          class="col"
-          id="form-id"
-        >
-          <% if(element.likes.indexOf(user.username) !== -1){ %>
-          <button type="submit" class="like-button" id="liked">
-            <i class="fas fa-thumbs-up"> Like</i>
-          </button>
-          <% }else{%>
-          <button type="submit" class="like-button" id="like">
-            <i class="far fa-thumbs-up"> Like</i>
-          </button>
-          <% } %>
-        </form>
         <button id="comment-button" class="col">
           <i class="far fa-comment-alt"> Comment</i>
         </button>

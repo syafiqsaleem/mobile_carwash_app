@@ -13,28 +13,6 @@
     <p class="description"><%= collection.description %></p>
     <hr class="line" />
 
-    <i class="far fa-thumbs-up" style="font-size: 30px" id="like-status">
-      <%= collection.likes.length %></i
-    >
-    <hr class="line" />
-    <div class="row">
-      <form
-        method="POST"
-        action="/collection/like/<%= collection._id %>"
-        class="col"
-        id="form-id"
-      >
-        <% if(collection.likes.indexOf(user.username) !== -1){ %>
-        <button type="submit" class="like-button" id="liked">
-          <i class="fas fa-thumbs-up"> Like</i>
-        </button>
-        <% }else{%>
-        <button type="submit" class="like-button" id="like">
-          <i class="far fa-thumbs-up"> Like</i>
-        </button>
-        <% } %>
-      </form>
-
       <button id="comment-button" class="col">
         <i class="far fa-comment-alt"> Comment</i>
       </button>
@@ -80,7 +58,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for (let key in product) { %>
+        <% for (let key in service) { %>
         <tr>
           <th scope="row"><%=service[key] %></th>
           <td><%= userSelection[key].name %></td>

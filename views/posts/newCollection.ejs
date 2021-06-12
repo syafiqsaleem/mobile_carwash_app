@@ -3,7 +3,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Parts</th>
+      <th scope="col">Services</th>
       <th scope="col">Selection</th>
       <th scope="col">Price(SGD)</th>
       <th scope="col">Status</th>
@@ -11,16 +11,16 @@
   </thead>
 
   <tbody>
-    <% for (let key in product) { %>
+    <% for (let key in service) { %>
     <tr>
-      <th scope="row"><%=product[key] %></th>
-      <td><%= userBuild[key].name %></td>
-      <td><%= userBuild[key].price %></td>
+      <th scope="row"><%=service[key] %></th>
+      <td><%= userSelection[key].name %></td>
+      <td><%= userSelection[key].price %></td>
       <td><i class="fas fa-lock" style="font-size: 36px; color: red"></i></td>
     </tr>
     <%}%>
     <tr>
-      <td><%= 'Total: '+userBuild.totalPrice %></td>
+      <td><%= 'Total: ' + userSelection.totalPrice %></td>
     </tr>
   </tbody>
 </table>
@@ -55,7 +55,7 @@
       id="description"
     ></textarea>
   </div>
-  <button type="submit" class="btn btn-info">SHARE!</button>
+  <button type="submit" class="btn btn-info">SHARE</button>
 </form>
 
 <%- include('../partials/footer'); %>
