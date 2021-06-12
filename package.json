@@ -17,12 +17,16 @@
   },
   "homepage": "https://github.com/syafiqsaleem/mobile_carwash_app#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "lodash": "^4.17.21",
     "method-override": "^3.0.0",
-    "mongoose": "^5.12.13"
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.13",
+    "sha256": "^0.2.0",
+    "uuid": "^8.3.2"
   }
 }
