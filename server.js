@@ -41,26 +41,60 @@ app.use(
 // app.use(flash({ sessionKeyName: "flash_message" }));
 
 // setting middleware to ensure global template user variable (Set the user to an initial value of null & check the session if it's set -> auth-middleware)
-// app.use(setUserVarMiddleware);
+app.use(setUserVarMiddleware);
 
 // =======================================
 //              ROUTES
 // =======================================
 //Product Controllers
-app.get("/", productController.index);
-app.get("/mobilecarwash/list", productController.displayList);
-app.patch("/mobilecarwash/:service", productController.addCustomChoice);
-app.get("/mobilecarwash/:service", productController.listService);
-app.post("/mobilecarwash/:id", productController.addSelectionToCollection);
+app.get("/", authenticatedOnly, productController.index);
+app.get(
+  "/mobilecarwash/list",
+  authenticatedOnly,
+  productController.displayList
+);
+app.patch(
+  "/mobilecarwash/:service",
+  authenticatedOnly,
+  productController.addCustomChoice
+);
+app.get(
+  "/mobilecarwash/:service",
+  authenticatedOnly,
+  productController.listService
+);
+app.post(
+  "/mobilecarwash/:id",
+  authenticatedOnly,
+  productController.addSelectionToCollection
+);
 
 // Collection Controllers
-app.get("/collection", collectionController.collection);
-app.get("/collection/new", collectionController.showNewCollectionForm);
-app.get("/collection/:id", collectionController.showCollection);
-app.post("/collection", collectionController.newCollection);
-app.delete("/collection/:id", collectionController.deleteCollection);
+app.get("/collection", authenticatedOnly, collectionController.collection);
+app.get(
+  "/collection/new",
+  authenticatedOnly,
+  collectionController.showNewCollectionForm
+);
+app.get(
+  "/collection/:id",
+  authenticatedOnly,
+  collectionController.showCollection
+);
+app.post("/collection", authenticatedOnly, collectionController.newCollection);
+app.delete(
+  "/collection/:id",
+  authenticatedOnly,
+  collectionController.deleteCollection
+);
 
 // User Controllers
+app.get("/users/register", guestOnly, userController.showRegistrationForm);
+app.post("/users/register", guestOnly, userController.register);
+app.get("/users/login", guestOnly, userController.showLoginForm);
+app.post("/users/login", guestOnly, userController.login);
+app.get("/users/profile", authenticatedOnly, userController.profile);
+app.post("/users/logout", userController.logout);
 
 // =======================================
 //              LISTENER
