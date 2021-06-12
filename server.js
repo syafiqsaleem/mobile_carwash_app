@@ -6,6 +6,7 @@ const express = require("express");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const { setUserVarMiddleware } = require("./middlewares/auth-middleware");
 const productController = require("./controllers/product_controller");
 const collectionController = require("./controllers/collection_controller");
 const userController = require("./controllers/user_controller");
@@ -104,7 +105,7 @@ mongoose
   .then((response) => {
     console.log("DB connection is successful");
     app.listen(port, () => {
-      console.log(`Mobile Carwash app listening on port: ${port}`);
+      console.log(`Mobile Carwash app listening on localhost: ${port}`);
     });
   })
   .catch((err) => {
