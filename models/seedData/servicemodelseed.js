@@ -1,23 +1,16 @@
 require("dotenv").config();
+const ServiceModel = require("../../models/service");
+const newSelection = require("../seedData/newSelection");
 const mongoose = require("mongoose");
-const _ = require("lodash");
-const productData = require("../models/seedData/newSelection");
-const { ProductModel } = require("../models/products");
-
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
-
-productData = productData.map((item) => {
-  item.slug = _.kebabCase(item.name);
-  return item;
-});
-
+console.log(mongoURI);
 let connection = null;
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((connResp) => {
     connection = connResp;
-    return ProductModel.insertMany(productData);
+    return ServiceModel.insertMany(newSelection);
   })
   .then((insertResp) => {
     console.log("successful data insertion");

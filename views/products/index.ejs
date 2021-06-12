@@ -1,0 +1,30 @@
+<%- include('../partials/head') %>
+
+<div class="container">
+  <div class="row">
+    <% if (products.length !== 0) { %> <% products.forEach((element, index) => {
+    %>
+
+    <div class="col-4">
+      <div class="card mb-3">
+        <img src="<%= element.image %>" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title"><%= element.type %></h5>
+          <h6 class="card-title"><%= element.name %></h6>
+          <p class="card-text"><%= element.price %></p>
+          <a href="/products/<%= element.slug %> " class="btn btn-primary"
+            >View Product</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <% }); %> <% } else { %>
+
+    <p>No product is available</p>
+
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/foot') %>

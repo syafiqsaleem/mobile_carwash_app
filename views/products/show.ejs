@@ -1,0 +1,50 @@
+<%- include('../partials/head') %>
+
+<div class="container">
+
+  <div class="row">
+    
+    <div class="col-6 offset-3">
+
+      <div class="card">
+        <img src="<%= product.image %>" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title"><%= product.name %></h5>
+          <p class="card-text"><%= product.price %></p>
+          
+          <div class="btn-group">
+            <% if (user) { %> 
+              <a href="/products/<%= product.slug %>/ratings/new" class="btn btn-info">Rate</a>
+            <% } %>
+            <a href="/products/<%= product.slug %>/edit" class="btn btn-primary">Edit</a>
+            <form method="post" action="/products/<%= product.slug %>?_method=DELETE">
+              <button type="submit" class="btn btn-danger">Delete</a>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <section id="product-ratings" class="mt-5">
+
+    <ul class="list-group">
+
+      <% ratings.forEach(element => { %>
+
+        <li class="list-group-item">
+          <p>Rating Score: <%= element.rating %> </p>
+          <p>Comment: <%= element.comment %></p>
+          <p>Rated At: <%= element.created_at %> </p>
+        </li>
+
+      <% }); %>
+    </ul>
+
+  </section>
+
+</div>
+
+<%- include('../partials/foot') %>

@@ -1,94 +1,72 @@
-const customChoiceModel = require("../models/custom_choice");
-const UserModel = require("../models/users");
-const EditModel = require("../models/edit");
-const CollectionModel = require("../models/collection");
+const { UserModel } = require("../models/users");
 const moment = require("moment");
-const { result } = require("lodash");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const userControllers = {
-  showRegistrationForm: (req, res) => {
-    res.render("users/register", {
-      pageTitle: "Register as a User",
-    });
+module.exports = {
+  registerForm: (req, res) => {
+    res.render("users/register");
   },
 
-  showLoginForm: (req, res) => {
-    res.render("users/login", {
-      pageTitle: "User Login",
-    });
+  loginForm: (req, res) => {
+    res.render("users/login");
   },
 
-  register: (req, res) => {
-    // validate the users input (In-progress)
+  registerUser: async (req, res) => {
+    // validate first & last name
+    if (!req.body.first_name || !req.body.last_name) {
+      res.redirect("/users/register");
+      return;
+    }
 
-    UserModel.findOne({
-      username: req.body.username,
-    })
-      .then((result) => {
-        // if found in DB, means email has already been registered, redirect to registration page
-        if (result) {
-          res.redirect("/users/register");
-          return;
-        }
+    // ensure password and confirm password matches
+    if (req.body.password !== req.body.password_confirm) {
+      res.redirect("/users/register");
+      return;
+    }
 
-        const timestampNow = moment().utc();
-        // If no result found in DB --> proceed with registration
-        // hashing using bcrypt
-        const generatedHash = await bcrypt.hash(req.body.password, saltRounds);
+    // ensure that there is no existing user account with the same email given
+    let user = null;
+    try {
+      user = await UserModel.findOne({ email: req.body.email });
+    } catch (err) {
+      console.log(err);
+      res.redirect("/users/register");
+      return;
+    }
+    if (user) {
+      res.redirect("/users/register");
+      return;
+    }
 
-        // create user in DB
-        UserModel.create({
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
-          username: req.body.username,
-          hash: generatedHash,
-          created_at: timestampNow,
-          updated_at: timestampNow,
-        })
-          .then((createResult) => {
-            res.redirect("/mobilecarwash/list");
-          })
-          .catch((err) => {
-            console.log(err);
-            res.redirect("/users/register");
-          });
+    const timestampNow = moment().utc();
 
-        customChoiceModel
-          .create({
-            username: req.body.username,
-          })
-          .then((createResult) => {
-            res.redirect("/mobilecarwash/list");
-          })
-          .catch((err) => {
-            console.log(err);
-            res.redirect("/users/register");
-          });
+    // hashing using bcrypt
+    const generatedHash = await bcrypt.hash(req.body.password, saltRounds);
 
-        EditModel.create({
-          username: req.body.username,
-        })
-          .then((createResult) => {
-            res.redirect("/mobilecarwash/list");
-          })
-          .catch((err) => {
-            console.log(err);
-            res.redirect("/users/register");
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.redirect("/users/register");
+    try {
+      await UserModel.create({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        hash: generatedHash,
+        created_at: timestampNow,
+        updated_at: timestampNow,
       });
+    } catch (err) {
+      console.log(err);
+      res.redirect("/users/register");
+      return;
+    }
+
+    res.redirect("/products");
   },
 
-  login: async (req, res) => {
+  loginUser: async (req, res) => {
     let user = null;
 
     try {
-      user = await UserModel.findOne({ username: req.body.username });
+      user = await UserModel.findOne({ email: req.body.email });
     } catch (err) {
       console.log(err);
       res.redirect("/users/register");
@@ -101,54 +79,21 @@ const userControllers = {
     }
 
     const isValidPassword = await bcrypt.compare(req.body.password, user.hash);
-
     if (!isValidPassword) {
       res.redirect("/users/register");
       return;
     }
 
     req.session.user = user;
-    res.redirect("/mobilecarwash/list");
+    res.redirect("/users/dashboard");
   },
 
-  profile: (req, res) => {
-    UserModel.findOne({
-      username: req.session.user.username,
-    })
-      .then((userResult) => {
-        if (!userResult) {
-          res.redirect("/users/login");
-          return;
-        }
-        CollectionModel.find({
-          username: req.session.user.username,
-        })
-          .sort({ updated_at: "desc" })
-          .then((postResult) => {
-            if (!postResult) {
-              res.redirect("/users/login");
-              return;
-            }
-            res.render("users/profile", {
-              pageTitle: "User Profile",
-              info: userResult,
-              post: postResult,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.redirect("/users/login");
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.redirect("/users/login");
-      });
+  dashboard: (req, res) => {
+    res.render("users/dashboard");
   },
+
   logout: (req, res) => {
     req.session.destroy();
-    res.redirect("/users/login");
+    res.redirect("/products");
   },
 };
-
-module.exports = userControllers;

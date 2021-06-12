@@ -10,28 +10,28 @@ const newSelection = [
       duration: "30mins",
     },
   },
-  {
-    name: "waterless wash",
-    type: "exteriorwash",
-    price: 8,
-    image: "https://images.app.goo.gl/AeW68G9E79eN7SKy9",
-    properties: {
-      surface: "Clean & Shiny",
-      coat: "waterwax",
-      duration: "20mins",
-    },
-  },
-  {
-    name: "claybar treatment",
-    type: "surfacetreatment",
-    price: 30,
-    image: "https://images.app.goo.gl/UHJXv4Cr2UobAot2A",
-    properties: {
-      surface: "Safe removal of contaminants",
-      advantage: "Silky smooth appeal",
-      duration: "45mins",
-    },
-  },
+  // {
+  //   name: "waterless wash",
+  //   type: "exteriorwash",
+  //   price: 8,
+  //   image: "https://images.app.goo.gl/AeW68G9E79eN7SKy9",
+  //   properties: {
+  //     surface: "Clean & Shiny",
+  //     coat: "waterwax",
+  //     duration: "20mins",
+  //   },
+  // },
+  // {
+  //   name: "claybar treatment",
+  //   type: "surfacetreatment",
+  //   price: 30,
+  //   image: "https://images.app.goo.gl/UHJXv4Cr2UobAot2A",
+  //   properties: {
+  //     surface: "Safe removal of contaminants",
+  //     advantage: "Silky smooth appeal",
+  //     duration: "45mins",
+  //   },
+  // },
   {
     name: "ceremic coating",
     type: "surfacetreatment",
@@ -54,28 +54,28 @@ const newSelection = [
       duration: "15mins",
     },
   },
-  {
-    name: "tyre shine",
-    type: "wheels",
-    price: 2,
-    image: "https://images.app.goo.gl/6pMZvFFNbyWcv2DP9",
-    properties: {
-      surface: "Wet look",
-      advantage: "Protective layer that repel dirt & grime",
-      duration: "10mins",
-    },
-  },
-  {
-    name: "vacuum",
-    type: "interior",
-    price: 10,
-    image: "https://images.app.goo.gl/kw9qJqDz1e9sr8DeA",
-    properties: {
-      surface: "Clean from dirt & dust",
-      advantage: "dust-free",
-      duration: "20mins",
-    },
-  },
+  // {
+  //   name: "tyre shine",
+  //   type: "wheels",
+  //   price: 2,
+  //   image: "https://images.app.goo.gl/6pMZvFFNbyWcv2DP9",
+  //   properties: {
+  //     surface: "Wet look",
+  //     advantage: "Protective layer that repel dirt & grime",
+  //     duration: "10mins",
+  //   },
+  // },
+  // {
+  //   name: "vacuum",
+  //   type: "interior",
+  //   price: 10,
+  //   image: "https://images.app.goo.gl/kw9qJqDz1e9sr8DeA",
+  //   properties: {
+  //     surface: "Clean from dirt & dust",
+  //     advantage: "dust-free",
+  //     duration: "20mins",
+  //   },
+  // },
   {
     name: "vacuum & disinfection interior wipedown",
     type: "interior",
@@ -98,17 +98,17 @@ const newSelection = [
       duration: "40mins",
     },
   },
-  {
-    name: "leather cleaning",
-    type: "leathercare",
-    price: 25,
-    image: "https://images.app.goo.gl/XmDAjbTnZsYSRqEr6",
-    properties: {
-      surface: "Clean",
-      advantage: "remove dirt & dust",
-      duration: "20mins",
-    },
-  },
+  // {
+  //   name: "leather cleaning",
+  //   type: "leathercare",
+  //   price: 25,
+  //   image: "https://images.app.goo.gl/XmDAjbTnZsYSRqEr6",
+  //   properties: {
+  //     surface: "Clean",
+  //     advantage: "remove dirt & dust",
+  //     duration: "20mins",
+  //   },
+  // },
   {
     name: "fumigation",
     type: "addon",
@@ -121,10 +121,5 @@ const newSelection = [
     },
   },
 ];
-
-newSelection = newSelection.map((item) => {
-  item.slug = _.kebabCase(item.name);
-  return item;
-})
 
 module.exports = newSelection;

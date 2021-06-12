@@ -6,7 +6,7 @@ module.exports = {
       return;
     }
 
-    res.redirect("/mobilecarwash/login");
+    res.redirect("/users/login");
   },
 
   guestOnly: (req, res, next) => {
@@ -16,7 +16,7 @@ module.exports = {
       return;
     }
 
-    res.redirect("/mobilecarwash/list");
+    res.redirect("/users/dashboard");
   },
 
   setUserVarMiddleware: (req, res, next) => {
