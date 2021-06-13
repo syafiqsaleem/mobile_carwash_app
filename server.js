@@ -10,6 +10,7 @@ const { flash } = require("express-flash-message");
 const { setUserVarMiddleware } = require("./middlewares/auth-middleware");
 const productRouter = require("./routers/product_router");
 const userRouter = require("./routers/user_router");
+const lodash = require("lodash");
 
 const app = express();
 const port = 3000;
@@ -21,6 +22,9 @@ mongoose.set("useCreateIndex", true);
 // set the view engine that express will use
 app.set("view engine", "ejs");
 // app.set('views', './views')
+
+// set lodash on every ejs.
+app.locals.lodash = lodash;
 
 // setting middleware to accept json and urlencoded request body
 app.use(express.json());

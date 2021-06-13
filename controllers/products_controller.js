@@ -1,6 +1,12 @@
 const _ = require("lodash");
-const { ProductModel } = require("../models/products");
+const { v4: uuidV4 } = require("uuid");
+
+const AddonsModel = require("../models/addons");
+const CartModel = require("../models/cart");
+const ProductModel = require("../models/products");
+const CompletedPackageModel = require("../models/completedpackage");
 const { ProductRatingModel } = require("../models/product_ratings");
+const addons = require("../models/addons");
 
 module.exports = {
   index: async (req, res) => {
@@ -14,16 +20,47 @@ module.exports = {
     }
 
     res.render("products/index", {
-      products: products,
+      addons,
+      products,
     });
   },
 
-  newForm: async (req, res) => {
-    const messages = await req.consumeFlash("error");
+  customize: async (req, res) => {
+    try {
+      const addons = await AddonsModel.find();
+      const package = await ProductModel.findOne({ slug: req.params.slug });
 
-    res.render("products/new", {
-      messages: messages,
-    });
+      const hasCart = CartModel.findOne({ email: req.session.user.email });
+
+      if (hasCart) {
+        res.render("/products/customize", {
+          addons,
+          cart: hasCart,
+          package,
+        });
+
+        return;
+      }
+
+      const cartSlug = uuidV4();
+
+      await CartModel.insertOne({
+        slug: cartSlug,
+        packageSlug: package.slug,
+        email: req.session.user.email,
+        addons: [],
+      });
+
+      cart = await CartModel.findOne({ slug: cartSlug });
+
+      res.render("/products/customize", {
+        addons,
+        cart,
+        package,
+      });
+    } catch (error) {
+      res.redirect("/products");
+    }
   },
 
   show: (req, res) => {
@@ -95,28 +132,69 @@ module.exports = {
         res.redirect("/products");
       });
   },
+  // * this adds cart addons
+  updateAddons: async (req, res) => {
+    try {
+      const cartSlug = req.params.slug;
+      const addonSlug = req.body["addon-slug"];
 
-  update: (req, res) => {
-    let newSlug = _.kebabCase(req.body.name);
+      cart = await CartModel.findOne({ slug: cartSlug });
 
-    ProductModel.updateOne(
-      { slug: req.params.slug },
-      {
-        $set: {
-          type: req.body.type,
-          name: req.body.name,
-          price: req.body.price,
-          image: req.body.image,
-          slug: newslug,
-        },
+      if (!_.find(cart.addons, { slug: addonSlug })) {
+        addon = AddonsModel.findOne({ slug: addonSlug });
+
+        await CartModel.updateOne(
+          {
+            slug: cartSlug,
+          },
+          {
+            $set: {
+              addons: [...cart.addons, addon],
+            },
+          }
+        );
+
+        res.redirect("/products/customize/");
+
+        return;
       }
-    )
-      .then((updateResp) => {
-        res.redirect("/products/" + newSlug);
-      })
-      .catch((err) => {
-        res.redirect("/products/" + req.params.slug + "/show");
-      });
+
+      throw new Error("Unable to update cart!");
+    } catch (error) {
+      res.statusCode = 400;
+      res.send("Unable to update cart");
+    }
+  },
+
+  finalize: async (req, res) => {
+    try {
+      const cartSlug = req.params.slug;
+
+      const cart = await CartModel.findOne({ slug: cartSlug });
+
+      const email = req.session.user.email;
+
+      if (cart) {
+        await CompletedPackageModel.insertOne({
+          slug: uuidV4(),
+          email,
+          packageSlug: card.packageSlug,
+          addons: cart.addons,
+        });
+        await CartModel.deleteOne({
+          slug: cart.slug,
+        });
+
+        res.redirect("/products");
+
+        return;
+      }
+
+      throw new Error("cart not found");
+    } catch (error) {
+      res.statusCode = 400;
+      res.send("unable to complete order");
+    }
   },
 
   delete: (req, res) => {

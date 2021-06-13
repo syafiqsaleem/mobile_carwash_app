@@ -10,8 +10,13 @@ const {
 // index
 router.get("/", productController.index);
 
-// new
-router.get("/new", productController.newForm);
+// customize package
+router.get("/customize", productController.customize);
+
+// update cart for addons
+router.patch("/customize/update/addons/:slug", productController.updateAddons);
+
+router.post("/product/finalize/:slug", productController.finalize);
 
 // show
 router.get("/:slug", productController.show);

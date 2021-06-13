@@ -1,0 +1,51 @@
+<%- include('../partials/head') %>
+
+<div class="container">
+  <% if (messages.length > 0) { %>
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      <% messages.forEach(msg => { %>
+      <li><%= msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+  <% } %>
+
+  <div class="card">
+    <img src="<%= product.image %>" class="card-img-top" />
+    <div class="card-body">
+      <h5 class="card-title"><%= package.name %></h5>
+      <p><b>Selected Products</b></p>
+      <ul class="list-group">
+        <% package.products.forEach((element) => { %>
+        <li class="list-group-item">
+          <%= element.name %>(<%= element.type %>)
+        </li>
+        <% }); %>
+      </ul>
+
+      <% if(cart.addons.length > 0) { %>
+      <p><b>Selected Addons</b></p>
+      <ul class="list-group">
+        <% cart.addons.forEach((element) => { %>
+        <li class="list-group-item">
+          <%= element.name %>($<%= element.price %>)
+        </li>
+        <% }); %>
+      </ul>
+      <% } %> <% if(addons.length > 0) { %>
+      <p><b>Available Addons</b></p>
+      <ul class="list-group">
+        <% addons.forEach((element) => { %> <% if (!lodash.find(cart.addons,
+        {slug: element.slug})) { %>
+        <li class="list-group-item">
+          <%= element.name %>, (<%= element.price %>)
+        </li>
+        <% } %> < % }); %>
+      </ul>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/foot') %>

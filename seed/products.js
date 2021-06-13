@@ -1,13 +1,20 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const productData = require("../models/seedData/newSelection");
-const { ProductModel } = require("../models/products");
+const { v4: uuidv4 } = require("uuid");
+
+const productSeedData = require("../models/seedData/newSelection");
+const ProductModel = require("../models/products");
 
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
-productData = productData.map((item) => {
-  item.slug = _.kebabCase(item.name);
+const products = productSeedData.map((item) => {
+  item.slug = uuidv4();
+  item.products = item.products.map(({ name, type }) => ({
+    name,
+    type,
+    slug: uuidv4(),
+  }));
   return item;
 });
 
@@ -17,9 +24,9 @@ mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((connResp) => {
     connection = connResp;
-    return ProductModel.insertMany(productData);
+    return ProductModel.insertMany(products);
   })
-  .then((insertResp) => {
+  .then(() => {
     console.log("successful data insertion");
   })
   .catch((err) => {

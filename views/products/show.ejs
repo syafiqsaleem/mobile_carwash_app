@@ -10,17 +10,14 @@
         <img src="<%= product.image %>" class="card-img-top">
         <div class="card-body">
           <h5 class="card-title"><%= product.name %></h5>
-          <p class="card-text"><%= product.price %></p>
-          
-          <div class="btn-group">
-            <% if (user) { %> 
-              <a href="/products/<%= product.slug %>/ratings/new" class="btn btn-info">Rate</a>
-            <% } %>
-            <a href="/products/<%= product.slug %>/edit" class="btn btn-primary">Edit</a>
-            <form method="post" action="/products/<%= product.slug %>?_method=DELETE">
-              <button type="submit" class="btn btn-danger">Delete</a>
-            </form>
-          </div>
+          <ul class="list-group">
+            <% product.products.forEach((element) => { %>
+              <li class="list-group-item"><%= element.name %>(<%= element.type %>)</li>
+            <% }); %>
+          </ul>
+          <form method="post" action="/products/new<%= product.slug %>>
+            <button type="submit" class="btn btn-primary">Customize</a>
+          </form>
         </div>
       </div>
 
