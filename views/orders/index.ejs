@@ -1,0 +1,10 @@
+<%- include('../partials/head') %>
+<div class="container">
+  <h5>Orders</h5>
+  <ul>
+    <% orders.forEach(order => { %>
+    <li><%= order.slug %></li>
+    <% }) %>
+  </ul>
+</div>
+<%- include('../partials/foot') %>

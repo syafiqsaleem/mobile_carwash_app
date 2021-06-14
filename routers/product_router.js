@@ -4,46 +4,72 @@ const productController = require("../controllers/products_controller");
 const productRatingController = require("../controllers/product_ratings_controller");
 const {
   authenticatedOnly: authenticatedOnlyMiddleware,
-  guestOnly: guestOnlyMiddleware,
 } = require("../middlewares/auth-middleware");
 
-// index
-router.get("/", productController.index);
+// * index
+router.get("/", authenticatedOnlyMiddleware, productController.index);
 
-// customize package
-router.get("/customize", productController.customize);
+// * show product
+router.get("/show/:slug", authenticatedOnlyMiddleware, productController.show);
 
-// update cart for addons
-router.patch("/customize/update/addons/:slug", productController.updateAddons);
-
-router.post("/product/finalize/:slug", productController.finalize);
-
-// show
-router.get("/:slug", productController.show);
-
-// create
-router.post("/", productController.create);
-
-// edit
-router.get("/:slug/edit", productController.editForm);
-
-// update
-router.patch("/:slug", productController.update);
-
-// delete
-router.delete("/:slug", productController.delete);
-
-// product rating routes
+// * customize product
 router.get(
-  "/:slug/ratings/new",
+  "/customize/:slug",
   authenticatedOnlyMiddleware,
-  productRatingController.newForm
+  productController.customize
 );
 
+// * add addons to cart
 router.post(
-  "/:slug/ratings",
+  "/customize/addons/add/:slug",
   authenticatedOnlyMiddleware,
-  productRatingController.create
+  productController.addAddons
 );
+
+// * remove addons from cart
+router.delete(
+  "/customize/addons/delete/:slug",
+  authenticatedOnlyMiddleware,
+  productController.deleteAddons
+);
+
+// * cancel purchase
+router.delete(
+  "/customize/cancel",
+  authenticatedOnlyMiddleware,
+  productController.cancel
+);
+
+// * complete purchase
+router.post(
+  "/customize/finalize",
+  authenticatedOnlyMiddleware,
+  productController.finalize
+);
+
+// * create
+// router.post("/", authenticatedOnlyMiddleware, productController.create);
+
+// * edit
+// router.get("/:slug/edit", authenticatedOnlyMiddleware, productController.editForm);
+
+// * update
+// router.patch("/:slug", authenticatedOnlyMiddleware, productController.update);
+
+// * delete
+// router.delete("/:slug", authenticatedOnlyMiddleware, productController.delete);
+
+// * product rating routes
+// router.get(
+// 	"/:slug/ratings/new",
+// 	authenticatedOnlyMiddleware,
+// 	productRatingController.newForm
+// );
+
+// router.post(
+// 	"/:slug/ratings",
+// 	authenticatedOnlyMiddleware,
+// 	productRatingController.create
+// );
 
 module.exports = router;

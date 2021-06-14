@@ -10,6 +10,7 @@ const { flash } = require("express-flash-message");
 const { setUserVarMiddleware } = require("./middlewares/auth-middleware");
 const productRouter = require("./routers/product_router");
 const userRouter = require("./routers/user_router");
+const orderRouter = require("./routers/order_router");
 const lodash = require("lodash");
 
 const app = express();
@@ -49,12 +50,25 @@ app.use(flash({ sessionKeyName: "flash_message" }));
 // setting middleware to ensure global template user variable (Set the user to an initial value of null & check the session if it's set -> auth-middleware)
 app.use(setUserVarMiddleware);
 
+// // redirection to log in page if not logged in
+// app.use((req, res, next) => {
+//   if (req.session) {
+//     if (req.session.user) {
+//       next();
+//       return;
+//     }
+//   }
+//   res.redirect("/users/login");
+// });
+
 // =======================================
 //              ROUTES
 // =======================================
 app.use("/products", productRouter);
 
 app.use("/users", userRouter);
+
+app.use("/orders", orderRouter);
 
 // =======================================
 //              LISTENER

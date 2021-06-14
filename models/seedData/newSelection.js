@@ -4,7 +4,7 @@ const newSelection = [
     image:
       "https://www.shutterstock.com/image-vector/abstract-technology-circle-button-template-bronze-173439668",
     price: "80",
-    products: [
+    services: [
       {
         name: "waterless wash",
         type: "exterior",
@@ -21,7 +21,7 @@ const newSelection = [
   },
   {
     name: "silver",
-    products: [
+    services: [
       {
         name: "sonax wash",
         type: "exteriorwash",
@@ -45,7 +45,7 @@ const newSelection = [
   },
   {
     name: "gold",
-    products: [
+    services: [
       {
         name: "sonax snow foam wash",
         type: "exteriorwash",

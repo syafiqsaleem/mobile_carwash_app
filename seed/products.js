@@ -10,11 +10,6 @@ const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${
 
 const products = productSeedData.map((item) => {
   item.slug = uuidv4();
-  item.products = item.products.map(({ name, type }) => ({
-    name,
-    type,
-    slug: uuidv4(),
-  }));
   return item;
 });
 

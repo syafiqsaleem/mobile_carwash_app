@@ -85,7 +85,7 @@ module.exports = {
     }
 
     req.session.user = user;
-    res.redirect("/users/dashboard");
+    res.redirect("/products");
   },
 
   dashboard: (req, res) => {

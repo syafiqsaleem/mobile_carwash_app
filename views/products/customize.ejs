@@ -1,23 +1,14 @@
 <%- include('../partials/head') %>
 
 <div class="container">
-  <% if (messages.length > 0) { %>
-  <div class="alert alert-danger" role="alert">
-    <ul>
-      <% messages.forEach(msg => { %>
-      <li><%= msg %></li>
-      <% }) %>
-    </ul>
-  </div>
-  <% } %>
-
   <div class="card">
     <img src="<%= product.image %>" class="card-img-top" />
     <div class="card-body">
-      <h5 class="card-title"><%= package.name %></h5>
-      <p><b>Selected Products</b></p>
+      <h5 class="card-title"><%= product.name %></h5>
+      <p>Package Price: <%= product.price %></p>
+      <p><b>Included Services</b></p>
       <ul class="list-group">
-        <% package.products.forEach((element) => { %>
+        <% product.services.forEach((element) => { %>
         <li class="list-group-item">
           <%= element.name %>(<%= element.type %>)
         </li>
@@ -30,20 +21,42 @@
         <% cart.addons.forEach((element) => { %>
         <li class="list-group-item">
           <%= element.name %>($<%= element.price %>)
+          <form
+            method="post"
+            action="/products/customize/addons/delete/<%= element.slug %>?_method=DELETE"
+          >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
         </li>
         <% }); %>
       </ul>
       <% } %> <% if(addons.length > 0) { %>
       <p><b>Available Addons</b></p>
       <ul class="list-group">
-        <% addons.forEach((element) => { %> <% if (!lodash.find(cart.addons,
-        {slug: element.slug})) { %>
+        <% addons.forEach((element) => { %>
         <li class="list-group-item">
           <%= element.name %>, (<%= element.price %>)
+          <form
+            method="post"
+            action="/products/customize/addons/add/<%= element.slug %>"
+          >
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
         </li>
-        <% } %> < % }); %>
+        <% }); %>
       </ul>
       <% } %>
+
+      <p>Total Package Price: <%= totalPrice %></p>
+    </div>
+    <div class="card-footer">
+      <form method="DELETE" action="/products/customize/cancel">
+        <button type="submit" class="btn">Cancel Order</button>
+      </form>
+
+      <form method="POST" action="/products/customize/finalize">
+        <button type="submit" class="btn btn-primary">Finalize Order</button>
+      </form>
     </div>
   </div>
 </div>

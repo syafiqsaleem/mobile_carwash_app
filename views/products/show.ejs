@@ -11,12 +11,16 @@
         <div class="card-body">
           <h5 class="card-title"><%= product.name %></h5>
           <ul class="list-group">
-            <% product.products.forEach((element) => { %>
+            <% product.services.forEach((element) => { %>
               <li class="list-group-item"><%= element.name %>(<%= element.type %>)</li>
             <% }); %>
           </ul>
-          <form method="post" action="/products/new<%= product.slug %>>
-            <button type="submit" class="btn btn-primary">Customize</a>
+          <form method="get" action="/products/customize/<%= product.slug %>">
+            <button type="submit" class="btn btn-primary">Customize Product</a>
+          </form>
+
+          <form method="get" action="/products/">
+            <button type="submit" class="btn btn-primary">More Products</a>
           </form>
         </div>
       </div>
@@ -25,22 +29,7 @@
 
   </div>
 
-  <section id="product-ratings" class="mt-5">
 
-    <ul class="list-group">
-
-      <% ratings.forEach(element => { %>
-
-        <li class="list-group-item">
-          <p>Rating Score: <%= element.rating %> </p>
-          <p>Comment: <%= element.comment %></p>
-          <p>Rated At: <%= element.created_at %> </p>
-        </li>
-
-      <% }); %>
-    </ul>
-
-  </section>
 
 </div>
 
