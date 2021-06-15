@@ -14,7 +14,7 @@ const orderRouter = require("./routers/order_router");
 const lodash = require("lodash");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // tenary operator
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
 mongoose.set("useFindAndModify", false);
