@@ -28,6 +28,24 @@ This is a simple web app that helps customers select car washing packages.
 
 HTML, CSS, JavaScript, node js, express, ejs, MVC (Model, Views, Controllers), MongoDB, Mongoose
 
+### RESTful routes
+
+1. Order
+   | Route Name | URL | HTTP Verb | Description |
+   | ---------- | --- | --------- | ----------- |
+   | Index | / | GET | Display customers package selection|
+   | ---------- | --- | --------- | ----------- |
+
+2. Product
+   | Route Name | URL | HTTP Verb | Description |
+   | ---------- | --- | --------- | ----------- |
+   | Index | / | GET | Display packages (Bronze, Silver, Gold)|
+   | ---------- | --- | --------- | ----------- |
+   | Show | /show/:slug | GET | Display package details of package selected |
+   | ---------- | --- | --------- | ----------- |
+   | Customize Product| /customize/:slug | GET | Allow customers to add or remove addons |
+   | ---------- | --- | --------- | ----------- |
+
 ### MVP
 
 Features:
