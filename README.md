@@ -38,25 +38,25 @@ HTML, CSS, JavaScript, node js, express, ejs, MVC (Model, Views, Controllers), M
 2. Product
    | Route Name | URL | HTTP Verb | Description |
    | ---------- | --- | --------- | ----------- |
-   | Index | / | GET | Display packages (Bronze, Silver, Gold)|
-   | ---------- | --- | --------- | ----------- |
+   | Index | / | GET | Display packages (Bronze, Silver, Gold) |
+   | ----- | - | --- | --------------------------------------- |
    | Show | /show/:slug | GET | Display package details of package selected |
-   | ---------- | --- | --------- | ----------- |
+   | ---- | ----------- | --- | ------------------------------------------- |
    | Customize Product| /customize/:slug | GET | Allow customers to add or remove addons |
-   | ---------- | --- | --------- | ----------- |
+   | ---------------- | ---------------- | --- | --------------------------------------- |
    | Add Addons to cart | /customize/addons/add/:slug | POST | To update the cart with addons |
-   | ---------- | --- | --------- | ----------- |
-   | Remove Addons to cart | /customize/addons/delete/:slug | To remove addons from the cart |
-   | ---------- | --- | --------- | ----------- |
-   | Cancel Selection | /customize/cancel | To delete the selected package |
-   | ---------- | --- | --------- | ----------- |
-   | Complete Selection | /customize/finalize | To complete the selected package |
+   | ------------------ | --------------------------- | ---- | ------------------------------ |
+   | Remove Addons to cart | /customize/addons/delete/:slug | DELETE | To remove addons from the cart |
+   | --------------------- | ------------------------------ | ------ | ------------------------------ |
+   | Cancel Selection | /customize/cancel | DELETE | To delete the selected package |
+   | ---------------- | ----------------- | ------ | ------------------------------ |
+   | Complete Selection | /customize/finalize | POST | To complete the selected package |
 
 3. User
    | Register | GET & POST | /register | To register an accounts |
-   | ---------- | --- | --------- | ----------- |
+   | -------- | ---------- | --------- | ----------------------- |
    | Login | GET & POST | /login | To log in |
-   | ---------- | --- | --------- | ----------- |
+   | ----- | ---------- | ------ | --------- |
    | Logout | POST | /logout | To log out |
 
 ### MVP
