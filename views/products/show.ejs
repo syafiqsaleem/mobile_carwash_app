@@ -12,15 +12,15 @@
           <h2 class="card text-center"><%= product.name %></h2>
           <ul class="list-group">
             <% product.services.forEach((element) => { %>
-              <li class="list-group-item"><%= element.name %> (<%= element.type %>)</li>
+              <li class="list-group-item"><%= element.name %>(<%= element.type %>)</li>
             <% }); %>
           </ul>
           <form method="get" action="/products/customize/<%= product.slug %>">
-            <button type="submit" class="btn btn-primary">Customize Product</a>
+            <button type="submit" class="btn btn-primary mt-3">Customize Product</a>
           </form>
 
           <form method="get" action="/products/">
-            <button type="submit" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-secondary mt-3">Back</a>
           </form>
         </div>
       </div>

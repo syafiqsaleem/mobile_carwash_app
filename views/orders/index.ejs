@@ -16,8 +16,7 @@
   </div>
   <ul class="list-group list-group-flush">
     <% order.product.services.forEach(service => { %> 
-    <li class="list-group-item"><%= service.name %>></li>
-    <li class="list-group-item"><%= service.type %>></li>
+    <li class="list-group-item"><%= service.name %> (<%= service.type %>)</li>
     <% }) %> 
     <% order.addons.forEach(addon => { %>
     <li class="list-group-item"><%= addon.name %></li>
