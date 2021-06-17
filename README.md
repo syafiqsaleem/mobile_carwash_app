@@ -53,6 +53,8 @@ HTML, CSS, JavaScript, node js, express, ejs, MVC (Model, Views, Controllers), M
    | Complete Selection | /customize/finalize | POST | To complete the selected package |
 
 3. User
+   | Route Name | URL | HTTP Verb | Description |
+   | ---------- | --- | --------- | ----------- |
    | Register | GET & POST | /register | To register an accounts |
    | -------- | ---------- | --------- | ----------------------- |
    | Login | GET & POST | /login | To log in |
