@@ -32,6 +32,7 @@ HTML, CSS, JavaScript, node js, express, ejs, MVC (Model, Views, Controllers), M
 
 1. Order
    | Route Name | URL | HTTP Verb | Description |
+   | ---------- | --- | --------- | ----------- |
    | Index | / | GET | Display customers package selection|
 
 2. Product
