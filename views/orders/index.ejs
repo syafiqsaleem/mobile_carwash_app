@@ -1,10 +1,31 @@
 <%- include('../partials/head') %>
-<div class="container">
+<!-- <div class="container">
   <h5>Orders</h5>
   <ul>
-    <% orders.forEach(order => { %>
-    <li><%= order.slug %></li>
+    < orders.forEach(order => { %>
+    <li><= order.slug %></li>
+    < }) %>
+  </ul>
+</div> -->
+
+<div class="card" style="width: 18rem;">
+  <% orders.forEach(order => { %> 
+  <div class="card-body">
+    <h5 class="card-title"><%= order.email %></h5>
+    <!-- <p class="card-text"><= order.name %>(<= order.type %>)</p> -->
+  </div>
+  <ul class="list-group list-group-flush">
+    <% order.product.services.forEach(service => { %> 
+    <li class="list-group-item"><%= service.name %>></li>
+    <li class="list-group-item"><%= service.type %>></li>
+    <% }) %> 
+    <% order.addons.forEach(addon => { %>
+    <li class="list-group-item"><%= addon.name %></li>
     <% }) %>
   </ul>
 </div>
-<%- include('../partials/foot') %>
+<% }) %>
+      <%- include('../partials/foot') %>
+    </div>
+  </div>
+</div>

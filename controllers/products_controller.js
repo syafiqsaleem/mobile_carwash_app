@@ -191,11 +191,12 @@ module.exports = {
       const email = req.session.user.email;
 
       const cart = await CartModel.findOne({ email });
+      const product = await ProductModel.findOne({ slug: cart.productSlug });
 
       if (cart) {
         await OrdersModel.create({
           slug: uuidV4(),
-          productSlug: cart.productSlug,
+          product,
           email,
           addons: cart.addons,
         });

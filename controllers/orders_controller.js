@@ -1,4 +1,6 @@
 const OrdersModel = require("../models/orders");
+const ProductModel = require("../models/products");
+const { ProductRatingModel } = require("../models/product_ratings");
 
 module.exports = {
   index: async (req, res) => {
@@ -14,6 +16,7 @@ module.exports = {
         orders,
       });
     } catch (error) {
+      console.log(error);
       res.redirect("/products");
     }
   },

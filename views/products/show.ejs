@@ -9,10 +9,10 @@
       <div class="card">
         <img src="<%= product.image %>" class="card-img-top">
         <div class="card-body">
-          <h5 class="card-title"><%= product.name %></h5>
+          <h2 class="card text-center"><%= product.name %></h2>
           <ul class="list-group">
             <% product.services.forEach((element) => { %>
-              <li class="list-group-item"><%= element.name %>(<%= element.type %>)</li>
+              <li class="list-group-item"><%= element.name %> (<%= element.type %>)</li>
             <% }); %>
           </ul>
           <form method="get" action="/products/customize/<%= product.slug %>">
@@ -20,7 +20,7 @@
           </form>
 
           <form method="get" action="/products/">
-            <button type="submit" class="btn btn-primary">More Products</a>
+            <button type="submit" class="btn btn-secondary">Back</a>
           </form>
         </div>
       </div>

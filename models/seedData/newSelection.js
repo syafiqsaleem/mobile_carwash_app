@@ -1,8 +1,7 @@
 const newSelection = [
   {
     name: "bronze",
-    image:
-      "https://www.shutterstock.com/image-vector/abstract-technology-circle-button-template-bronze-173439668",
+    image: "../public/img/bronze.jpg",
     price: "80",
     services: [
       {
@@ -39,8 +38,7 @@ const newSelection = [
         type: "protective coating",
       },
     ],
-    image:
-      "https://www.shutterstock.com/image-vector/olympic-games-silver-medal-template-abstract-385134244",
+    image: "../public/img/silver.jpg",
     price: "150",
   },
   {
@@ -67,8 +65,7 @@ const newSelection = [
         type: "exterior",
       },
     ],
-    image:
-      "https://www.shutterstock.com/image-vector/round-grunge-golden-frame-on-gray-606736655",
+    image: "../public/img/gold.jpg",
     price: "300",
   },
 ];

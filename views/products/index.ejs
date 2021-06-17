@@ -6,11 +6,11 @@
 
     <div class="col-4">
       <div class="card mb-3">
-        <img src="<%= element.image %>" class="card-img-top" />
+        <h3 class="card text-center"><%= element.name %></h3>
         <div class="card-body">
           <h5 class="card-title"><%= element.package %></h5>
-          <p class="card-text"><%= element.price %></p>
-          <a href="/products/show/<%= element.slug %>" class="btn btn-primary"
+          <p class="text-center">Price(SGD): <%= element.price %></p>
+          <a href="/products/show/<%= element.slug %>" class="btn btn-info"
             >View Product</a
           >
         </div>
